@@ -1,17 +1,12 @@
-# BBs Counter 2.0
+# BBs Counter 2.0 - (Progetto Esame di Maturità)
 
 An ATtiny84-based control board for airsoft guns (ASG). It counts fired BBs with an infrared sensor, monitors the state of a 2S LiPo battery, and keeps the BB count of the last five games in EEPROM.
-
-- **Hardware version:** 2.0
-- **Software version:** 3.0
-- **Board revision (EasyEDA schematic):** 3.0
 
 ## Features
 
 - **BB counting:** an IR emitter and photodiode detect each BB. An LM393 comparator, with a trimmer setting the threshold, feeds a falling-edge external interrupt (INT0).
 - **Battery monitoring:**
   - Total pack voltage and the voltage of each cell.
-  - Absolute percentage (8.40 V = 100 %) and relative percentage (6.20 V = 0 %, 8.40 V = 100 %).
   - Warning when the difference between the two cells exceeds 0.2 V.
   - Warning when the relative charge falls below 25 %.
 - **Game history:** the BB count of the last five games is stored in EEPROM. A new game is detected automatically.
@@ -23,14 +18,14 @@ An ATtiny84-based control board for airsoft guns (ASG). It counts fired BBs with
 | Block | Details |
 |---|---|
 | MCU | ATtiny84 (8 KB flash, 512 B SRAM), internal 8 MHz oscillator |
-| Power | 2S LiPo (7.4 V nominal, 6.4 V critical, 8.4 V max); fuse; MCP1702T-3.3 LDO (3.3 V, 250 mA) |
-| Voltage sensing | Two resistor dividers (62 kΩ / 27 kΩ for the pack, 16 kΩ / 27 kΩ for cell 1) read by the 10-bit ADC, referenced to VCC |
+| Power | 2S LiPo; fuse; MCP1702T-3.3 LDO (3.3 V, 250 mA) |
+| Voltage sensing | Two resistor dividers (62 kΩ / 27 kΩ for the pack, 16 kΩ / 27 kΩ for cell 1) read by the 10-bit ADC |
 | BB sensing | IR LED and photodiode, LM393 comparator, trimmer threshold (about 0.41 V on the inverting input), 4.7 kΩ pull-up on the interrupt pin |
-| Display | I²C OLED, 4-pin JST connector, 10 kΩ pull-ups on SDA/SCL |
+| Display | I²C OLED, 4-pin JST connector |
 | Inputs | Two push buttons (AVANTI, CONFERMA) and a 3-position selector switch |
 | Connectors | JST-XH for battery, JST-XH for IR/photodiode, JST-XH for OLED, 1×6 header for ISP programming, 1×2 header for voltage testing |
 
-Passive components are 0805 SMD. The board was designed in EasyEDA. Total cost is about 12.81 € per board, including the display (about 7 €) and shipping.
+Passive components are 0805 SMD. Total cost is about 12.81 € per board, including the display (about 7 €) and shipping.
 
 ## Repository contents
 
@@ -59,7 +54,7 @@ Pinout of the programming header: VCC, GND, MOSI, MISO, SCK, RESET.
 
 1. Connect the battery through the JST-XH connector.
 2. The board shows the splash screen and reads the last saved game data.
-3. **Main screen:** pellet count, pack voltage, cell 1 voltage, cell 2 voltage, and charge percentages.
+3. **Main screen:** bbs count, pack voltage, cell 1 voltage, cell 2 voltage, and charge percentages.
 4. **AVANTI:** shows the last five games. Press CONFERMA to return to the main screen.
 5. **Selector switch in position 2 (settings):** AVANTI moves between settings, CONFERMA changes the value. The new values are saved when you return to the main screen.
 
@@ -70,4 +65,4 @@ Pinout of the programming header: VCC, GND, MOSI, MISO, SCK, RESET.
 
 ## Authors and history
 
-Developed as a personal project. The hardware is at version 2.0 and the software is at version 3.0.
+Developed as a personal project for the Italian high school final exam.
